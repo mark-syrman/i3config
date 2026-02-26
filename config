@@ -1,0 +1,131 @@
+#	________  ________  ___  ________       
+#	|\   ____\|\   __  \|\  \|\   ___  \     
+#	\ \  \___|\ \  \|\  \ \  \ \  \\ \  \    
+#	 \ \  \    \ \  \\\  \ \  \ \  \\ \  \   
+#	  \ \  \____\ \  \\\  \ \  \ \  \\ \  \  
+#	   \ \_______\ \_______\ \__\ \__\\ \__\ 
+#	    \|_______|\|_______|\|__|\|__| \|__|                                          
+#	 ________  ________  ________   ________ 
+#	|\   ____\|\   __  \|\   ___  \|\  _____\
+#	\ \  \___|\ \  \|\  \ \  \\ \  \ \  \__/ 
+#	 \ \  \    \ \  \\\  \ \  \\ \  \ \   __\
+#	  \ \  \____\ \  \\\  \ \  \\ \  \ \  \_|
+#	   \ \_______\ \_______\ \__\\ \__\ \__\ 
+#	    \|_______|\|_______|\|__| \|__|\|__| 
+
+
+# My config for i3wm
+
+# Super
+set $mod Mod4
+
+# Exit from i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Are you sure?' -b 'Yes' 'i3-msg-exit'"
+
+# Reload the confif
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+
+# Terminal (Alacritty)
+bindsym $mod+Return exec alacritty
+
+# Some i3 stuff (menu, rofi, etc.)
+# bindsym $mod+d exec dmenu_run
+bindsym $mod+d exec --no-startup-id rofi -show drun -theme ~/.config/rofi/config.rasi
+
+
+# Close window
+bindsym $mod+q kill
+
+
+# Window Managment
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+v split vertical
+bindsym $mod+Shift+v split horizontal
+
+
+bindsym $mod+r mode "resize"
+mode "resize" {
+	bindsym h resize shrink width 10 px or 10 ppt
+	bindsym j resize grow height 10 px or 10 ppt
+	bindsym k resize shrink height 10 px or 10 ppt
+	bindsym l resize grow width 10 px of 10 ppt
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+10 workspace $ws10
+
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+10 move container to workspace $ws10
+
+# Gaps
+gaps inner 10
+gaps outer 5
+
+# Borders
+default_border none
+
+
+# Sound
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +1%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -1%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Brightness
+bindsym XF86MonBrightnessUp exec brightnessctl set +10%
+bindsym XF86MonBrightnessDown exec brightnessctl set -10%
+
+
+
+# Layouts (En, ru)
+exec --no-startup-id setxkbmap us,ru -option grp:alt_shift_toggle
+
+# Background
+exec --no-startup-id feh --bg-scale ~/.i3-features/Background/win11.jpg
+
+# Polybar
+exec_always --no-startup-id killall polybar; polybar main
+
+# Some settings for apps
+for_window[class="Kdenlive"] layout tabbed
